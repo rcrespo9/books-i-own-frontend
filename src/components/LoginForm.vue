@@ -1,5 +1,6 @@
 <template>
   <form @submit.prevent="login">
+    <p v-if="isLoggingIn">Logging in...</p>
     <label>Username
       <input type="text" v-model.trim="credentials.username">
     </label>
@@ -21,6 +22,7 @@ export default {
         username: '',
         password: ''
       },
+      isLoggingIn: false,
       errors: []
     }
   },
@@ -28,14 +30,17 @@ export default {
     login () {
       LoginApi.login(this.credentials)
         .then(res => {
+          this.isLoggingIn = true
           this.credentials.username = ''
           this.credentials.password = ''
-          console.log(res)
-          this.$store.dispatch('saveUserToken', res.token)
+          this.$store.dispatch('saveUserToken', res.data.token)
         })
         .catch(error => {
           console.log(error)
-          // this.errors.push(error.message)
+          this.errors.push(error.message)
+        })
+        .finally(() => {
+          this.isLoggingIn = false
         })
     }
   }

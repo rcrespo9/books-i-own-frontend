@@ -12,11 +12,17 @@ export default new Vuex.Store({
   mutations: {
     setToken (state, val) {
       state.userToken = val
+    },
+    setAuthors (state, val) {
+      state.authors = val
     }
   },
   actions: {
     saveUserToken ({ commit }, token) {
       commit('setToken', token)
+    },
+    getAuthors ({ commit }, payload) {
+      commit('setAuthors', payload)
     }
   }
 })
