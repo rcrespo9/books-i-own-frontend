@@ -12,6 +12,7 @@
 </template>
 
 <script>
+import VueCookie from 'vue-cookie'
 import LoginApi from '@/api/Login'
 
 export default {
@@ -28,12 +29,13 @@ export default {
   },
   methods: {
     login () {
+      this.isLoggingIn = true
+
       LoginApi.login(this.credentials)
         .then(res => {
-          this.isLoggingIn = true
           this.credentials.username = ''
           this.credentials.password = ''
-          this.$store.dispatch('saveUserToken', res.data.token)
+          VueCookie.set('booksIOwnToken', res.data.token, '1h')
         })
         .catch(error => {
           console.log(error)

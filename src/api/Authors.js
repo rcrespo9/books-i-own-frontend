@@ -6,7 +6,7 @@ export default {
   createAuthor (authorInfo, token) {
     return axios.post(`${baseURL}/authors`, authorInfo, {
       headers: {
-        'Authorization': `Bearer: ${token}`
+        'Authorization': `Bearer ${token}`
       }
     })
   }

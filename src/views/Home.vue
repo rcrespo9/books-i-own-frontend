@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <LoginForm v-if="!this.$store.userToken" />
-    <AuthorsForm v-if="this.$store.userToken" />
+    <AuthorsForm />
+    <LoginForm />
   </div>
 </template>
 
